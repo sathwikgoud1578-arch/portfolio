@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sathwik Purushotham — Python Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080d;--bg2:#0d0f17;--bg3:#131620;--card:#0f1119;
+  --accent:#00e5a0;--accent2:#0099ff;--accent3:#ff4d6d;
+  --text:#dde2f0;--muted:#5a6080;--muted2:#8892b0;
+  --border:rgba(255,255,255,0.06);--border2:rgba(0,229,160,0.18);
+  --ff:'Cabinet Grotesk',sans-serif;--mono:'Fira Code',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ff);font-weight:400;line-height:1.6;overflow-x:hidden;cursor:none}
+::selection{background:rgba(0,229,160,0.2)}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,160,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,0.025) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring{position:fixed;width:30px;height:30px;border:1px solid rgba(0,229,160,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(7,8,13,0.88);backdrop-filter:blur(20px)}
+.nav-logo{font-family:var(--mono);font-size:.82rem;color:var(--accent);text-decoration:none;letter-spacing:.04em}
+.nav-links{display:flex;gap:2.25rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.68rem;color:var(--muted2);text-decoration:none;letter-spacing:.08em;transition:color .2s}
+.nav-links a::before{content:attr(data-n);color:var(--accent);margin-right:5px;font-size:.58rem}
+.nav-links a:hover{color:var(--text)}
+.nav-pill{font-family:var(--mono);font-size:.6rem;padding:.28rem .75rem;border:1px solid var(--border2);border-radius:100px;color:var(--accent);letter-spacing:.05em;display:flex;align-items:center;gap:.45rem}
+.dot-live{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,229,160,.4)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(0,229,160,0)}}
+
+/* HERO */
+.hero{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:4rem;max-width:1200px;margin:0 auto;padding:0 3rem;padding-top:5rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.68rem;color:var(--muted2);letter-spacing:.08em;margin-bottom:1.75rem;padding:.35rem .9rem;border:1px solid var(--border);border-radius:100px;background:rgba(0,229,160,.03)}
+.hero h1{font-size:clamp(2.8rem,5.5vw,5.5rem);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:1.4rem}
+.h1-l1{display:block;color:var(--text)}
+.h1-l2{display:block;color:var(--accent)}
+.h1-l3{display:block;color:transparent;-webkit-text-stroke:1px rgba(221,226,240,.18)}
+.hero-role{font-family:var(--mono);font-size:.82rem;color:var(--accent2);letter-spacing:.04em;margin-bottom:1.4rem}
+.hero-desc{font-size:.97rem;color:var(--muted2);max-width:480px;line-height:1.78;margin-bottom:2.25rem}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2.25rem}
+.chip{font-family:var(--mono);font-size:.62rem;padding:.28rem .7rem;border-radius:4px;letter-spacing:.03em;background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--muted2)}
+.chip.on{background:rgba(0,229,160,.07);border-color:rgba(0,229,160,.25);color:var(--accent)}
+.btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:.75rem;letter-spacing:.05em;padding:.85rem 1.75rem;border-radius:6px;text-decoration:none;transition:all .22s;display:inline-block}
+.btn-f{background:var(--accent);color:#07080d;border:1px solid var(--accent);font-weight:500}
+.btn-f:hover{background:transparent;color:var(--accent);transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-o:hover{border-color:var(--accent2);color:var(--accent2);transform:translateY(-2px)}
+
+/* PROFILE CARD */
+.hero-right{position:relative}
+.profile-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;position:relative;overflow:hidden}
+.profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent3))}
+.p-avatar{width:68px;height:68px;border-radius:14px;background:linear-gradient(135deg,rgba(0,229,160,.18),rgba(0,153,255,.18));border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:1.1rem;letter-spacing:-.02em}
+.p-name{font-size:1.15rem;font-weight:700;margin-bottom:.15rem}
+.p-title{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.05em;margin-bottom:1.35rem}
+.p-info{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.35rem}
+.p-row{display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.67rem;color:var(--muted2)}
+.p-ic{color:var(--accent);width:13px}
+.p-row a{color:var(--accent2);text-decoration:none}
+.p-div{height:1px;background:var(--border);margin:1.1rem 0}
+.p-stats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.ps{text-align:center;padding:.7rem;background:var(--bg3);border-radius:8px}
+.ps-n{font-size:1.4rem;font-weight:800;color:var(--text);line-height:1}
+.ps-l{font-family:var(--mono);font-size:.57rem;color:var(--muted);margin-top:.18rem;letter-spacing:.05em}
+.fb{position:absolute;font-family:var(--mono);font-size:.6rem;padding:.35rem .85rem;border-radius:100px;background:var(--card);border:1px solid var(--border);color:var(--muted2);white-space:nowrap}
+.fb1{top:-1rem;right:-1rem;border-color:rgba(0,229,160,.2);color:var(--accent)}
+.fb2{bottom:2.5rem;left:-1.75rem;border-color:rgba(0,153,255,.2);color:var(--accent2)}
+
+/* SECTIONS */
+section{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:7rem 3rem}
+.s-ey{font-family:var(--mono);font-size:.66rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.55rem;display:flex;align-items:center;gap:.7rem}
+.s-ey::after{content:'';flex:0 0 38px;height:1px;background:var(--accent)}
+.s-title{font-size:clamp(1.9rem,3.5vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:.65rem}
+.s-sub{color:var(--muted2);max-width:480px;font-size:.93rem;line-height:1.7}
+.sep{max-width:1200px;margin:0 auto;border:none;border-top:1px solid var(--border)}
+
+/* EXPERIENCE */
+.exp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem;margin-top:2.75rem;display:grid;grid-template-columns:1fr auto;gap:2rem;transition:border-color .28s,transform .28s;position:relative;overflow:hidden}
+.exp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),transparent)}
+.exp-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.exp-co{font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:.1em;margin-bottom:.35rem}
+.exp-role{font-size:1.25rem;font-weight:700;margin-bottom:.7rem}
+.exp-ul{list-style:none;margin-bottom:1.2rem}
+.exp-ul li{font-size:.865rem;color:var(--muted2);padding:.3rem 0;padding-left:1.2rem;position:relative;line-height:1.6}
+.exp-ul li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.62rem;top:.42rem}
+.tech-wrap{display:flex;flex-wrap:wrap;gap:.38rem}
+.tt{font-family:var(--mono);font-size:.6rem;padding:.22rem .58rem;border-radius:4px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.15);color:var(--accent);letter-spacing:.03em}
+.exp-meta{text-align:right;flex-shrink:0}
+.exp-period{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.04em;margin-bottom:.35rem}
+.exp-loc{font-size:.75rem;color:var(--muted)}
+.exp-badge{display:inline-block;margin-top:.7rem;font-family:var(--mono);font-size:.58rem;padding:.25rem .65rem;border-radius:100px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.75rem}
+.sg{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color .28s,transform .28s}
+.sg:hover{border-color:rgba(0,153,255,.2);transform:translateY(-3px)}
+.sg-hd{display:flex;align-items:center;gap:.7rem;margin-bottom:1.1rem}
+.sg-ic{width:34px;height:34px;border-radius:8px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.12);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.sg-t{font-size:.9rem;font-weight:700}
+.sg-items{display:flex;flex-wrap:wrap;gap:.4rem}
+.si{font-family:var(--mono);font-size:.65rem;padding:.3rem .72rem;border-radius:5px;background:var(--bg3);border:1px solid var(--border);color:var(--muted2);letter-spacing:.02em;transition:all .18s}
+.si:hover{background:rgba(0,229,160,.07);border-color:rgba(0,229,160,.22);color:var(--accent)}
+.si.hot{background:rgba(0,229,160,.07);border-color:rgba(0,229,160,.2);color:var(--accent)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-top:2.75rem}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.25rem;display:flex;flex-direction:column;transition:border-color .28s,transform .28s;position:relative;overflow:hidden}
+.pc:hover{border-color:var(--border2);transform:translateY(-5px)}
+.pc.feat{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center}
+.pc.feat::after{content:'FEATURED';position:absolute;top:1.4rem;right:1.4rem;font-family:var(--mono);font-size:.56rem;padding:.22rem .65rem;border-radius:100px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.25);color:var(--accent);letter-spacing:.1em}
+.pc-num{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.9rem}
+.pc-title{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem}
+.pc-lead{font-family:var(--mono);font-size:.65rem;color:var(--accent2);margin-bottom:.65rem;letter-spacing:.04em}
+.pc-ul{list-style:none;margin-bottom:1.4rem;flex:1}
+.pc-ul li{font-size:.84rem;color:var(--muted2);padding:.28rem 0;padding-left:1.1rem;position:relative;line-height:1.6}
+.pc-ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:.68rem}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:1rem}
+.pc-link{font-family:var(--mono);font-size:.67rem;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:.38rem;padding:.45rem .95rem;border-radius:6px;border:1px solid rgba(0,229,160,.22);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.pc-link:hover{background:rgba(0,229,160,.07);gap:.6rem}
+/* mini browser mock */
+.proj-mock{aspect-ratio:16/9;border-radius:10px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;position:relative}
+.mock-top{height:26px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:5px;padding:0 10px}
+.md{width:6px;height:6px;border-radius:50%}
+.mock-body{padding:10px;display:grid;grid-template-columns:70px 1fr;gap:8px;height:calc(100% - 26px)}
+.mock-sb{background:var(--bg2);border-radius:4px}
+.mock-main-c{display:flex;flex-direction:column;gap:6px}
+.mr{height:9px;border-radius:3px;background:var(--bg2)}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.75rem}
+.ec{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.9rem;transition:border-color .28s,transform .28s;position:relative}
+.ec.main{border-color:var(--border2)}
+.ec:hover{border-color:rgba(0,153,255,.2);transform:translateY(-3px)}
+.ec-lvl{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.65rem}
+.ec-deg{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.ec-school{font-size:.82rem;color:var(--muted2);margin-bottom:1.1rem}
+.ec-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:auto}
+.ec-period{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+.ec-gpa{text-align:right}
+.gpa-n{font-size:1.5rem;font-weight:800;color:var(--accent);line-height:1;display:block}
+.gpa-l{font-family:var(--mono);font-size:.55rem;color:var(--muted);letter-spacing:.06em}
+.ec-tag{position:absolute;top:1.1rem;right:1.1rem;font-family:var(--mono);font-size:.54rem;padding:.18rem .55rem;border-radius:100px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--accent)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;margin-top:3rem;align-items:start}
+.c-head{font-size:clamp(2.2rem,3.8vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:1.4rem}
+.c-head em{font-style:normal;color:var(--accent)}
+.c-text{color:var(--muted2);font-size:.95rem;line-height:1.75;margin-bottom:1.9rem}
+.c-links{display:flex;flex-direction:column;gap:.7rem}
+.cl{display:flex;align-items:center;gap:1rem;padding:.95rem 1.2rem;background:var(--card);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .22s}
+.cl:hover{border-color:var(--border2);transform:translateX(4px)}
+.cl-ic{width:34px;height:34px;border-radius:8px;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.12);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.cl-lbl{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.05em}
+.cl-val{font-size:.85rem;color:var(--text);font-weight:500;margin-top:.08rem}
+.avail-box{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:1.85rem;margin-bottom:1.4rem}
+.avail-hd{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:.95rem;margin-bottom:.95rem}
+.avail-ul{list-style:none}
+.avail-ul li{font-size:.875rem;color:var(--muted2);padding:.32rem 0;padding-left:1.2rem;position:relative}
+.avail-ul li::before{content:'✓';position:absolute;left:0;color:var(--accent)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:1200px;margin:0 auto;padding:1.9rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.fc{font-family:var(--mono);font-size:.65rem;color:var(--muted)}
+.fc em{font-style:normal;color:var(--accent)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-left>*{animation:fadeUp .65s ease both}
+.hero-eyebrow{animation-delay:.05s}.hero h1{animation-delay:.15s}.hero-role{animation-delay:.25s}
+.hero-desc{animation-delay:.32s}.hero-chips{animation-delay:.4s}.btns{animation-delay:.48s}
+.hero-right{animation:fadeUp .65s .28s ease both}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem}.hero-right{display:none}
+  section{padding:5rem 1.5rem}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .proj-grid,.edu-grid{grid-template-columns:1fr}
+  .pc.feat{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  footer{padding:1.5rem}
+}
+@media(max-width:600px){.skills-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cring"></div>
+
+<nav>
+  <a href="#" class="nav-logo">sathwik.dev</a>
+  <ul class="nav-links">
+    <li><a href="#exp" data-n="01">experience</a></li>
+    <li><a href="#skills" data-n="02">skills</a></li>
+    <li><a href="#projects" data-n="03">projects</a></li>
+    <li><a href="#edu" data-n="04">education</a></li>
+    <li><a href="#contact" data-n="05">contact</a></li>
+  </ul>
+  <div class="nav-pill"><span class="dot-live"></span>open to work</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="dot-live"></span>Python Full Stack Developer · Hyderabad, India</div>
+    <h1>
+      <span class="h1-l1">Sathwik</span>
+      <span class="h1-l2">Purushotham</span>
+      <span class="h1-l3">Developer_</span>
+    </h1>
+    <p class="hero-role">// Python · Django · Full Stack · CGPA 8.3</p>
+    <p class="hero-desc">Motivated ECE graduate building full-stack web applications with Python and Django. I ship real products, write clean code, and grow every single day.</p>
+    <div class="hero-chips">
+      <span class="chip on">Python</span><span class="chip on">Django</span>
+      <span class="chip on">Full Stack</span><span class="chip">HTML/CSS</span>
+      <span class="chip">Bootstrap</span><span class="chip">MySQL</span>
+      <span class="chip">Git &amp; GitHub</span><span class="chip">VS Code</span>
+    </div>
+    <div class="btns">
+      <a href="mailto:sathwikgoud1578@gmail.com" class="btn btn-f">Get in touch →</a>
+      <a href="https://www.linkedin.com/in/sathwik1578" target="_blank" class="btn btn-o">LinkedIn ↗</a>
+      <a href="https://github.com" target="_blank" class="btn btn-o">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="fb fb1">⬤ &nbsp;Available for hire</div>
+    <div class="profile-card">
+      <div class="p-avatar">SP</div>
+      <div class="p-name">Sathwik Purushotham</div>
+      <div class="p-title">Python Full Stack Developer</div>
+      <div class="p-info">
+        <div class="p-row"><span class="p-ic">✉</span><a href="mailto:sathwikgoud1578@gmail.com">sathwikgoud1578@gmail.com</a></div>
+        <div class="p-row"><span class="p-ic">☎</span>+91 8309464590</div>
+        <div class="p-row"><span class="p-ic">⌖</span>Hyderabad, India</div>
+        <div class="p-row"><span class="p-ic">↗</span><a href="https://www.linkedin.com/in/sathwik1578" target="_blank">linkedin/sathwik1578</a></div>
+      </div>
+      <div class="p-div"></div>
+      <div class="p-stats">
+        <div class="ps"><div class="ps-n">8.3</div><div class="ps-l">B.Tech CGPA</div></div>
+        <div class="ps"><div class="ps-n">2</div><div class="ps-l">Live Projects</div></div>
+        <div class="ps"><div class="ps-n">4mo</div><div class="ps-l">Industry Training</div></div>
+        <div class="ps"><div class="ps-n">10</div><div class="ps-l">SSC CGPA</div></div>
+      </div>
+    </div>
+    <div class="fb fb2">🐍 &nbsp;Python · Django · MySQL</div>
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- EXPERIENCE -->
+<section id="exp">
+  <p class="s-ey">01 — experience</p>
+  <h2 class="s-title">Work History.</h2>
+  <p class="s-sub">Real-world training in Python full stack development at an on-site Hyderabad firm.</p>
+  <div class="exp-card">
+    <div>
+      <p class="exp-co">PR SOFTWARE · HYDERABAD</p>
+      <h3 class="exp-role">Python Full Stack Developer — Trainee</h3>
+      <ul class="exp-ul">
+        <li>Completed intensive training in Python Full Stack Development with industry-standard practices.</li>
+        <li>Acquired hands-on experience building real web applications with the Django framework.</li>
+        <li>Worked across the full stack — HTML, CSS, Bootstrap frontend with Django-MySQL backend integration.</li>
+        <li>Practised Git and GitHub for version control, branching, and collaborative development workflows.</li>
+      </ul>
+      <div class="tech-wrap">
+        <span class="tt">Python</span><span class="tt">Django</span>
+        <span class="tt">HTML</span><span class="tt">CSS</span>
+        <span class="tt">Bootstrap</span><span class="tt">MySQL</span>
+      </div>
+    </div>
+    <div class="exp-meta">
+      <div class="exp-period">Aug 2025 — Nov 2025</div>
+      <div class="exp-loc">On-site · Hyderabad</div>
+      <div class="exp-badge">Completed</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="s-ey">02 — skills</p>
+  <h2 class="s-title">Tech Stack.</h2>
+  <p class="s-sub">Everything I work with regularly — from code to collaboration.</p>
+  <div class="skills-grid">
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">🐍</div><span class="sg-t">Programming</span></div>
+      <div class="sg-items"><span class="si hot">Python</span><span class="si hot">HTML5</span><span class="si hot">CSS3</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">⚙️</div><span class="sg-t">Frameworks</span></div>
+      <div class="sg-items"><span class="si hot">Django</span><span class="si hot">Bootstrap</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">🗄️</div><span class="sg-t">Databases</span></div>
+      <div class="sg-items"><span class="si hot">MySQL</span><span class="si hot">SQLite</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">🛠️</div><span class="sg-t">Tools & Platforms</span></div>
+      <div class="sg-items"><span class="si hot">Git</span><span class="si hot">GitHub</span><span class="si">VS Code</span><span class="si">PyCharm</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">🗣️</div><span class="sg-t">Languages</span></div>
+      <div class="sg-items"><span class="si">English</span><span class="si">Hindi</span><span class="si">Telugu</span></div>
+    </div>
+    <div class="sg">
+      <div class="sg-hd"><div class="sg-ic">🤝</div><span class="sg-t">Soft Skills</span></div>
+      <div class="sg-items"><span class="si">Communication</span><span class="si">Teamwork</span><span class="si">Leadership</span><span class="si">Critical Thinking</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="s-ey">03 — projects</p>
+  <h2 class="s-title">What I've Built.</h2>
+  <p class="s-sub">Full-stack applications shipped end-to-end, from database design to responsive UI.</p>
+  <div class="proj-grid">
+
+    <!-- FEATURED -->
+    <div class="pc feat">
+      <div>
+        <p class="pc-num">PROJECT 01 · FEB 2026 – APR 2026</p>
+        <h3 class="pc-title">Citizen Complaint Management System</h3>
+        <p class="pc-lead">Lead Developer</p>
+        <ul class="pc-ul">
+          <li>Built user authentication &amp; role-based access for admins and citizens</li>
+          <li>Citizens register complaints and track resolution status in real time</li>
+          <li>Admin dashboard for managing, updating &amp; resolving complaints</li>
+          <li>Responsive UI with Bootstrap, backend on Django + MySQL</li>
+          <li>Maintained full version history using Git and GitHub</li>
+        </ul>
+        <div class="pc-foot">
+          <div class="tech-wrap"><span class="tt">Python</span><span class="tt">Django</span><span class="tt">MySQL</span><span class="tt">Bootstrap</span><span class="tt">HTML/CSS</span></div>
+          <a href="https://github.com" target="_blank" class="pc-link">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="proj-mock">
+        <div class="mock-top">
+          <span class="md" style="background:#ff4d6d"></span>
+          <span class="md" style="background:#ffd740"></span>
+          <span class="md" style="background:#00e5a0"></span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-sb"></div>
+          <div class="mock-main-c">
+            <div class="mr" style="background:rgba(0,229,160,.15)"></div>
+            <div class="mr"></div><div class="mr" style="width:70%"></div>
+            <div class="mr"></div>
+            <div class="mr" style="height:28px;background:rgba(0,229,160,.09);border-radius:4px"></div>
+            <div class="mr" style="width:55%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="pc">
+      <p class="pc-num">PROJECT 02 · MAR 2026</p>
+      <h3 class="pc-title">Mini Hospital Management System</h3>
+      <p class="pc-lead">Lead Developer</p>
+      <ul class="pc-ul">
+        <li>Patient registration, doctor management &amp; appointment booking</li>
+        <li>Role-based access for admins, doctors &amp; patients</li>
+        <li>SQLite database for records &amp; appointments</li>
+        <li>Responsive UI built with Bootstrap for cross-device use</li>
+        <li>Project managed end-to-end with Git and GitHub</li>
+      </ul>
+      <div class="pc-foot">
+        <div class="tech-wrap"><span class="tt">Python</span><span class="tt">Django</span><span class="tt">SQLite</span><span class="tt">Bootstrap</span></div>
+        <a href="https://github.com" target="_blank" class="pc-link">GitHub ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- EDUCATION -->
+<section id="edu">
+  <p class="s-ey">04 — education</p>
+  <h2 class="s-title">Academic Background.</h2>
+  <div class="edu-grid">
+    <div class="ec main">
+      <div class="ec-tag">CURRENT</div>
+      <p class="ec-lvl">B.Tech Degree</p>
+      <p class="ec-deg">Electronics &amp; Communication Engineering</p>
+      <p class="ec-school">Sri Indu College of Engineering &amp; Technology, Hyderabad</p>
+      <div class="ec-foot">
+        <span class="ec-period">Nov 2022 — May 2026</span>
+        <div class="ec-gpa"><span class="gpa-n">8.3</span><span class="gpa-l">CGPA</span></div>
+      </div>
+    </div>
+    <div class="ec">
+      <p class="ec-lvl">Intermediate (MPC)</p>
+      <p class="ec-deg">Higher Secondary Education</p>
+      <p class="ec-school">Narayana Junior College, Hyderabad</p>
+      <div class="ec-foot">
+        <span class="ec-period">Jun 2020 — Jul 2022</span>
+        <div class="ec-gpa"><span class="gpa-n">9.5</span><span class="gpa-l">CGPA</span></div>
+      </div>
+    </div>
+    <div class="ec">
+      <p class="ec-lvl">SSC (10th Grade)</p>
+      <p class="ec-deg">Secondary School Certificate</p>
+      <p class="ec-school">Gowtham Model School, Jagtial</p>
+      <div class="ec-foot">
+        <span class="ec-period">Jul 2019 — Mar 2020</span>
+        <div class="ec-gpa"><span class="gpa-n">10</span><span class="gpa-l">CGPA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="s-ey">05 — contact</p>
+  <div class="contact-grid">
+    <div>
+      <h2 class="c-head">Let's build<br>something <em>great.</em></h2>
+      <p class="c-text">I'm actively looking for internships, developer roles, and collaborations. Whether you have a project in mind or just want to connect — I'm always open to a conversation.</p>
+      <div class="c-links">
+        <a href="mailto:sathwikgoud1578@gmail.com" class="cl">
+          <div class="cl-ic">✉</div>
+          <div><div class="cl-lbl">EMAIL</div><div class="cl-val">sathwikgoud1578@gmail.com</div></div>
+        </a>
+        <a href="tel:8309464590" class="cl">
+          <div class="cl-ic">☎</div>
+          <div><div class="cl-lbl">PHONE</div><div class="cl-val">+91 8309464590</div></div>
+        </a>
+        <a href="https://www.linkedin.com/in/sathwik1578" target="_blank" class="cl">
+          <div class="cl-ic" style="font-family:var(--mono);font-size:.68rem;font-weight:500">in</div>
+          <div><div class="cl-lbl">LINKEDIN</div><div class="cl-val">linkedin.com/in/sathwik1578</div></div>
+        </a>
+        <a href="https://github.com" target="_blank" class="cl">
+          <div class="cl-ic" style="font-family:var(--mono);font-size:.68rem;font-weight:500">gh</div>
+          <div><div class="cl-lbl">GITHUB</div><div class="cl-val">github.com/sathwik1578</div></div>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="avail-box">
+        <div class="avail-hd"><span class="dot-live"></span>Open to opportunities</div>
+        <ul class="avail-ul">
+          <li>Python / Django internships</li>
+          <li>Full stack developer roles</li>
+          <li>Freelance web projects</li>
+          <li>Open source collaboration</li>
+          <li>Mentorship &amp; guidance</li>
+        </ul>
+      </div>
+      <a href="mailto:sathwikgoud1578@gmail.com" class="btn btn-f" style="display:block;text-align:center;width:100%">Send a message →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="fc">© 2026 Sathwik Purushotham · All rights reserved</span>
+  <span class="fc">Built with <em>♥</em> in Hyderabad</span>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.sg,.pc,.ec,.exp-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='46px';ring.style.height='46px';ring.style.borderColor='rgba(0,229,160,.65)'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='30px';ring.style.height='30px';ring.style.borderColor='rgba(0,229,160,.35)'});
+});
+</script>
+</body>
+</html>
